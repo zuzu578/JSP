@@ -1,0 +1,110 @@
+package web02;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class MethodServlet
+ */
+@WebServlet("/MethodServlet")
+public class MethodServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MethodServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//http servlet request 란? 
+		//client 로부터 온 데이터가 포함되어있는 객체(수신용)//
+		//httpservletresponse:web browser(client)에 데이터를 보낼때 사용되는 객체이다.(통신용)//
+		response.setContentType("text/html; charset=utf-8");
+		//html 의 input 값들이 여기에 전달된다//
+		//getParameter (html에 보낸값을 받는다)//
+		String userid = request.getParameter("userid");
+		String passwd = request.getParameter("password");
+		PrintWriter out=response.getWriter();
+		//받아서 출력//
+		out.println("<h1>get방식으로 처리되었습니다.</h1>");
+		out.println("userid["+userid+"]<br>");
+		out.println("passwd["+passwd+"]");
+		//사용하면 닫아주어야한다;
+		out.close();
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//doGet(request, response);
+		//post방식은 id 값이 필요없다 name으로 처리가능//
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out=response.getWriter();
+		String first = request.getParameter("first");
+		String second= request.getParameter("second");
+		//받아서 출력//
+		out.println("<h1>get방식으로 처리되었습니다.</h1>");
+		//parseInt로 형변환(타입캐스팅)//
+		int n=Integer.parseInt(first);
+		int x=Integer.parseInt(second);
+		out.println(n*x);
+		
+		//사용하면 닫아주어야한다;
+		out.close();
+	}
+
+}
+
+
+
+
+
+
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="get" action="MethodServlet"> 
+  <input type="text" name="userid" id="userid">
+  <input type="password" name="passwd" id="passwd">
+  <input type="submit" value="로그인">
+  
+</form>
+<br><br>
+<form method="post" action="MethodServlet">
+<input type="text" name="first" ><br>
+<input type="text" name="second" ><br>
+ <input type="submit" value="post방식으로 호출">
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
