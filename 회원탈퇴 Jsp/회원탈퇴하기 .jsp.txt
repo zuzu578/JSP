@@ -1,0 +1,214 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<title>Bootstrap Sign up Form Horizontal</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<style>
+	body {
+		color: #999;
+		background: #f3f3f3;
+		font-family: 'Roboto', sans-serif;
+	}
+    .form-control {
+		border-color: #eee;
+        min-height: 41px;
+		box-shadow: none !important;
+	}
+    .form-control:focus {
+		border-color: #5cd3b4;
+	}
+    .form-control, .btn {        
+        border-radius: 3px;
+    }
+	.signup-form {
+		width: 500px;
+		margin: 0 auto;
+		padding: 30px 0;
+	}
+    .signup-form h2 {
+		color: #333;
+        margin: 0 0 30px 0;
+		display: inline-block;
+		padding: 0 30px 10px 0;
+		border-bottom: 3px solid #5cd3b4;
+    }
+    .signup-form form {
+		color: #999;
+		border-radius: 3px;
+    	margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+	.signup-form .form-group {
+		margin-bottom: 20px;
+	}
+	.signup-form label {
+		font-weight: normal;
+		font-size: 13px;
+	}
+    .signup-form input[type="checkbox"] {
+		margin-top: 2px;
+	}
+    .signup-form .btn {        
+        font-size: 16px;
+        font-weight: bold;
+		background: #5cd3b4;
+		border: none;
+		margin-top: 20px;
+		min-width: 140px;
+    }
+	.signup-form .btn:hover, .signup-form .btn:focus {
+		background: #41cba9;
+        outline: none !important;
+	}
+    .signup-form a {
+		color: #5cd3b4;
+		text-decoration: underline;
+	}
+	.signup-form a:hover {
+		text-decoration: none;
+	}
+    .signup-form form a {
+		color: #5cd3b4;
+		text-decoration: none;
+	}	
+	.signup-form form a:hover {
+		text-decoration: underline;
+	}
+</style>
+</head>
+<body>
+<div class="signup-form">
+    <form>
+		<div class="col-xs-8 col-xs-offset-4">
+			<h2>회원 탈퇴</h2>
+		</div>		
+        <div class="form-group">
+			<label class="control-label col-xs-4">Username</label>
+			<div class="col-xs-8">
+                <input type="text" class="form-control" id="username" name="username" required="required">
+            </div>        	
+        </div>
+		<div class="form-group">
+			<label class="control-label col-xs-4">Email Address</label>
+			<div class="col-xs-8">
+                <input type="email" class="form-control" id="email" name="email" required="required">
+            </div>        	
+        </div>
+		<div class="form-group">
+			<label class="control-label col-xs-4">Password</label>
+			<div class="col-xs-8">
+                <input type="password" class="form-control" id="password" name="password" required="required">
+            </div>        	
+        </div>
+		
+		<div class="form-group">
+			<div class="col-xs-8 col-xs-offset-4">
+				
+				<button type="submit" id="submit" name="submit" class="btn btn-primary btn-lg">회원탈퇴하기</button>
+			</div>  
+			
+		</div>		      
+   
+	<div class="text-center">메인으로 돌아가고싶으시다구요? <a href="#">메인으로 돌아가기.</a></div>
+	</form>
+</div>
+</body>
+</html>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script language="javascript">
+$(document)
+.on("click","#submit",function(){
+	if($("#username").val()==""){
+		alert("아이디를 공백으로 둘수 없습니다.")
+		return false;
+	}
+	if($("#password").val()==""){
+		alert("비밀번호를 공백으로 둘수 없습니다.")
+		return false;
+		
+	}
+	if($("#email").val()==""){
+		alert("이메일을 공백으로 둘수 없습니다.")
+		return false;
+	}
+	//==> 1) DB에 해당 유저의 정보가 있는지 없는지 확인
+	$.ajax({
+		  url:'InvalidDeleteUser',//호출될 서블릿의 경로(이름)
+		  method:'get',//데이터 전송방식 get/post
+		  //전송할 데이터(쿼리스트링)//
+		  data:'username='+$('input[name=username]').val()+'&password='+$('input[name=password]').val()+'&email='+$('input[name=email]').val(),
+		  dataType:'text',//반환받을 데이터 타입 
+		  beforeSend:function(){
+			 
+			  
+		  },
+		  success:function(txt){//호출 성공해서 완료하면 
+			  if(txt=="0"){
+				  console.log("debug");
+				  alert("존재하지않는 계정.")
+				  
+				  return false
+			  }else{
+				  alert("안녕히 계세요 ㅠㅠ..")
+				  return false;
+			  }
+		  	
+		
+		},
+		complete:function(){
+			
+		} 
+		
+	  })
+		
+	
+	
+	var check = confirm("정말 회원탈퇴하시겠습니까?")
+	if(check==true){
+		$.ajax({
+	 		  url:'DeleteUserInformation',//호출될 서블릿의 경로(이름)
+	 		  method:'get',//데이터 전송방식 get/post
+	 		  data:'username='+$('input[name=username]').val(),
+	 		  dataType:'text',//반환받을 데이터 타입 
+	 		  beforeSend:function(){},
+	 		  success:function(txt){//호출 성공해서 완료하면 
+	 			
+	 		},
+	 		complete:function(){
+	 			
+	 		} 
+	 		
+	 	    })
+	}else{
+		alert("회원 탈퇴를 취소합니다.");
+		return false;
+	}
+	
+	  
+
+	
+
+})
+
+
+</script>
